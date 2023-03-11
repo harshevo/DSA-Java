@@ -1,6 +1,9 @@
 class Solution {
 public:
     vector<vector<int>> merge(vector<vector<int>>& intervals) {
+
+        
+        //start
         vector<vector<int>> mergeIntervals;
         if(intervals.size()==0){
             return mergeIntervals;
@@ -10,6 +13,7 @@ public:
         for(auto it : intervals){
             if(it[0] <= tempInterval[1]){
                 tempInterval[1]=max(it[1],tempInterval[1]);
+                
             }
             else{
                 mergeIntervals.push_back(tempInterval);
