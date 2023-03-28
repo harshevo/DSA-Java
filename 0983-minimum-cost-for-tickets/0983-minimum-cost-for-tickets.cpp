@@ -1,46 +1,30 @@
 class Solution {
 public:
-    
-    int t[366];
-     
-    int solve(int i,int n,vector<int>& days, vector<int>& costs){
-        if(i>=n){
-            return 0; //base case
-        }
-        
-        if(t[i] != -1){
-            return t[i];
-        }
-        
-        //for 1 day
-        int cost1 = costs[0]+solve(i+1,n, days,costs);
-                       
-        // for 7 day
-        int max_day = days[i]+7;
-        int j =i;
-        while(j<n && days[j]<max_day){
-            j++;
-        }
-        int cost2 = costs[1]+solve(j,n, days,  costs);
-        
-        //for 30 day
-        j=i;
-        max_day = days[i]+30;
-        while(j<n &&days[j]<max_day){
-            j++;
-            
-        }
-        int cost3 = costs[2]+solve(j,n, days,  costs);
-        
-        return t[i]=min(min(cost1,cost2),cost3);
-    }
+
     int mincostTickets(vector<int>& days, vector<int>& costs) {
-        int n = days.size();
-        memset(t,-1,sizeof(t));
-       int ans =  solve(0,n,days,costs);
-        return ans;
+     
+        unordered_set<int> set(begin(days),end(days));
+        int last_day = days.back();
+        
+        vector<int> t(last_day+1,0);
+        
+        t[0]=0;
+        
+        for(int i=1;i<=last_day;i++){
+            if(set.find(i)==set.end()){
+                t[i]=t[i-1];
+                continue;
+            }
+            
+            t[i] = INT_MAX;
+            int day1pass = costs[0]+t[max((i-1),0)];
+            int day7pass = costs[1]+t[max((i-7),0)];
+            int day30pass = costs[2]+t[max((i-30),0)];
+            
+            t[i] = min({day1pass,day7pass,day30pass});
+        }
+        
+        return t[last_day];
     }
 
-    
-  
 };
