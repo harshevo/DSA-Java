@@ -11,7 +11,7 @@ public:
         vector<vector<int>> dp(h,vector<int>(w));
         int answer=0;
         
-        for(int row =0;row<h;++row){
+        for(int row =0;row<h;row++){
             for(int col=0;col<w;++col){
                 if(matrix[row][col] == '1'){
                     dp[row][col] = 1;
