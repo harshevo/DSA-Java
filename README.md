@@ -1,2 +1,3 @@
-# DSA-Java
+l# DSA-Java
+--SOL1
 
